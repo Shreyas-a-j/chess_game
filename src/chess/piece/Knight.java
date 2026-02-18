@@ -1,0 +1,28 @@
+package chess.piece;
+
+import chess.board.Board;
+import chess.model.PieceColor;
+import chess.model.PieceType;
+import chess.model.Position;
+
+import java.util.List;
+
+public class Knight extends Piece{
+    public Knight(PieceColor color){ super(color);}
+
+    @Override
+    public PieceType getType() {
+        return PieceType.KNIGHT;
+    }
+
+    @Override
+    public char getSymbol() {
+        return getColor() == PieceColor.WHITE ? 'K' : 'k';
+    }
+
+    @Override
+    public List<Position> getPossibleMoves(Board board, Position from) {
+        return List.of();
+    }
+
+}
