@@ -1,26 +1,31 @@
-package chess.board;
+package chess.board; //This class belongs to chess.board package
 
+//Import required classes from other packages
 import chess.model.PieceColor;
 import chess.model.PieceType;
 import chess.model.Position;
 import chess.piece.*;
 
 public class Board {
+
+    //2D array of Tile objects representing 8*8 chess board
     private final Tile[][] tiles;
 
+    //Constructor - creates the board
     public Board() {
         tiles = new Tile[0][0];
         for(int row = 0; row < 8; row++){
             for(int col = 0; col < 8; col++) {
-                tiles[row][col] = new Tile(row, col);
+                tiles[row][col] = new Tile(row, col);//Create tile at(row, col)
             }
         }
     }
 
+    //Method to initialize chess pieces on board
     public void initialize() {
         for (int row = 0; row < 8; row++) {
             for (int col = 0; col < 8; col++) {
-                tiles[row][col].setPiece(null);
+                tiles[row][col].setPiece(null);//Remove piece from tile
             }
         }
 
@@ -31,10 +36,10 @@ public class Board {
         }
 
         //rook
-        tiles[7][0].setPiece(new Rook(PieceColor.WHITE));
-        tiles[7][7].setPiece(new Rook(PieceColor.WHITE));
-        tiles[0][0].setPiece(new Rook(PieceColor.BLACK));
-        tiles[0][7].setPiece(new Rook(PieceColor.BLACK));
+        tiles[7][0].setPiece(new Rook(PieceColor.WHITE));//White left rook
+        tiles[7][7].setPiece(new Rook(PieceColor.WHITE));//white right rook
+        tiles[0][0].setPiece(new Rook(PieceColor.BLACK));//Black left rook
+        tiles[0][7].setPiece(new Rook(PieceColor.BLACK));//Black right rook
 
         //knight
         tiles[7][1].setPiece(new Knight(PieceColor.WHITE));
@@ -57,27 +62,34 @@ public class Board {
         tiles[0][4].setPiece(new King(PieceColor.BLACK));
     }
 
+    //Return tile at specific row and column
     public Tile getTile(int row, int col) { return tiles[row][col];}
 
+    //Return tile using position object
     public Tile getTile(Position position) {return tiles[position.getRow()][position.getCol()];}
 
+    //Get piece from given position
     public Piece getPiece(Position position) { return getTile(position).getPiece();}
 
     public Piece movePiece(Position from, Position to){
-        Tile fromTile = getTile(from);
-        Tile toTile = getTile(to);
-        Piece moving = fromTile.getPiece();
-        Piece captured = toTile.getPiece();
+        Tile fromTile = getTile(from);//Source tile
+        Tile toTile = getTile(to);//Destination tile
+
+
+        Piece moving = fromTile.getPiece();//Piece that is moving
+        Piece captured = toTile.getPiece();//Piece that may be captured
+
+        //Move piece
         toTile.setPiece(moving);
         fromTile.setPiece(null);
 
         if(moving instanceof Pawn) {
             if((moving.getColor() == PieceColor.WHITE && to.getRow() == 0)
                     || (moving.getColor() == PieceColor.BLACK && to.getRow() == 7)) {
-                toTile.setPiece(new Queen(moving.getColor()));
+                toTile.setPiece(new Queen(moving.getColor()));//Replace pawn with queen
             }
         }
-        return captured;
+        return captured;//Return captured
     }
 
     public void print(){
