@@ -92,4 +92,23 @@ public class Board {
         return captured;//Return captured
     }
 
+    public void print(){
+        System.out.println();
+        for(int row = 0; row < 8; row++){
+            int displayRank = 8 - row;
+            System.out.println(displayRank + "  ");
+            for(int col = 0; col < 8; col++){
+                Piece piece = tiles[row][col].getPiece();
+                if(piece == null) {
+                    System.out.println(". ");
+                } else {
+                    System.out.println(piece.getSymbol() + " ");
+                }
+            }
+            System.out.println();
+        }
+        System.out.println();
+        System.out.println("   a b c d e f g h");
+        System.out.println();
+    }
 }
