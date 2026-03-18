@@ -1,5 +1,8 @@
 package chess.model;
 
+/**
+ * Enumeration representing the type of a chess piece.
+ */
 public enum PieceType {
     KING,
     QUEEN,
@@ -8,3 +11,4 @@ public enum PieceType {
     KNIGHT,
     PAWN
 }
+
